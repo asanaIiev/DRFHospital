@@ -19,13 +19,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         ]
 
         extra_kwargs = {
-            'password': {'write_only': True}, # Поле можно только записывать, но оно не будет отображаться в ответе API
-            'token': {'read_only': True} # Поле можно только читать, но его нельзя передать при создании/обновлении
+            'password': {'write_only': True},
+            'token': {'read_only': True}
         }
 
     def create(self, validated_data):
-        validated_data['token'] = secrets.token_hex(32) # создать токен в переменную token после регистрации пользователя
-        user = CustomUser.objects.create_user(**validated_data) # сохранить созданный токен пользователю
+        validated_data['token'] = secrets.token_hex(32)
+        user = CustomUser.objects.create_user(**validated_data)
         return user
 
 class LoginSerializer(serializers.Serializer):
@@ -33,7 +33,7 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        user = authenticate(username=data['username'], password=data['password']) # Получить эти данные с созданных пользователей
+        user = authenticate(username=data['username'], password=data['password'])
         if not user:
             raise AuthenticationFailed('Incorrect credentials.')
         return {'user': user}
