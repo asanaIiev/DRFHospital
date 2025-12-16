@@ -1,6 +1,5 @@
 from rest_framework.permissions import BasePermission
 
-
 class IsNotPatientForDoctorAccess(BasePermission):
     def has_permission(self, request, view):
         try:

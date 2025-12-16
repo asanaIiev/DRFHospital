@@ -7,7 +7,6 @@ from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-
 class RegisterView(GenericAPIView):
     serializer_class = RegisterSerializer
 
@@ -24,7 +23,6 @@ class RegisterView(GenericAPIView):
             samesite='Lax'
         )
         return response
-
 
 class LoginView(GenericAPIView):
     serializer_class = LoginSerializer
@@ -44,7 +42,6 @@ class LoginView(GenericAPIView):
         )
         return response
 
-
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -52,7 +49,6 @@ class LogoutView(APIView):
         response = JsonResponse({'detail': 'Successfully logged out.'})
         response.delete_cookie('auth_token')
         return response
-
 
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = Doctor.objects.all()
