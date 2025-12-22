@@ -49,7 +49,7 @@ class LogoutSerializer(serializers.Serializer):
             token = RefreshToken(self.token)
             token.blacklist()
         except TokenError:
-            raise ValidationError('No token like this.')
+            raise ValidationError('Invalid token.')
 
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
